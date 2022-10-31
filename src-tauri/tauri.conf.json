@@ -26,7 +26,7 @@
       },
       "externalBin": [],
       "icon": ["icons/web/icon-512.png", "icons/macos/AppIcon.icns"],
-      "identifier": "dropcode.egoist.dev",
+      "identifier": "dev.egoist.dropcode",
       "longDescription": "",
       "macOS": {
         "entitlements": null,

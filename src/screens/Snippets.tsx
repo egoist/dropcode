@@ -2,7 +2,11 @@ import { Link, useNavigate, useSearchParams } from "solid-app-router"
 import { createEffect, createMemo, createSignal, For, on, Show } from "solid-js"
 import { confirm } from "@tauri-apps/api/dialog"
 import { Editor } from "../components/Editor"
-import { FolderHistoryModal, LanguageModal } from "../components/Modal"
+import {
+  FolderHistoryModal,
+  LanguageModal,
+  VSCodeSnippetSettingsModal,
+} from "../components/Modal"
 import { getLanguageName, languages } from "../lib/languages"
 import { debounce } from "../lib/utils"
 import { actions, state } from "../store"
@@ -22,6 +26,8 @@ export const Snippets = () => {
   const [getSelectedSnippetIds, setSelectedSnippetIds] = createSignal<string[]>(
     []
   )
+  const [getOpenVSCodeSnippetSettingsModal, setOpenVSCodeSnippetSettingsModal] =
+    createSignal(false)
 
   let searchInputEl: HTMLInputElement | undefined
 
@@ -358,6 +364,13 @@ export const Snippets = () => {
                     <button
                       type="button"
                       class="cursor w-full px-3 h-6 flex items-center whitespace-nowrap hover:bg-zinc-100"
+                      onClick={() => setOpenVSCodeSnippetSettingsModal(true)}
+                    >
+                      VSCode snippet
+                    </button>
+                    <button
+                      type="button"
+                      class="cursor w-full px-3 h-6 flex items-center whitespace-nowrap hover:bg-zinc-100"
                       onClick={() => moveSnippetToTrashOrRestore(snippet()!.id)}
                     >
                       {snippet()!.deletedAt
@@ -399,6 +412,13 @@ export const Snippets = () => {
         open={getOpenFolderHistoryModal()}
         setOpen={setOpenFolderHistoryModal}
       />
+      <Show when={snippet()}>
+        <VSCodeSnippetSettingsModal
+          open={getOpenVSCodeSnippetSettingsModal()}
+          setOpen={setOpenVSCodeSnippetSettingsModal}
+          snippet={snippet()!}
+        />
+      </Show>
       <div
         classList={{
           "-bottom-10": getSelectedSnippetIds().length === 0,

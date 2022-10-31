@@ -2,13 +2,16 @@ import { fs, path, dialog, invoke } from "@tauri-apps/api"
 import { BaseDirectory } from "@tauri-apps/api/fs"
 import { createStore } from "solid-js/store"
 
-interface Snippet {
+export interface Snippet {
   id: string
   name: string
   createdAt: string
   updatedAt: string
   language?: string
   deletedAt?: string
+  vscodeSnippet?: {
+    prefix?: string
+  }
 }
 
 interface AppData {
@@ -200,5 +203,38 @@ export const actions = {
       .catch(() => "[]")
     const folders: string[] = JSON.parse(text)
     return folders
+  },
+
+  syncSnippetsToVscode: async () => {
+    const vscodeSnippets: Record<
+      string,
+      { scope: string; prefix: string[]; body: string[] }
+    > = {}
+
+    for (const s of state.snippets) {
+      if (!s.vscodeSnippet?.prefix || s.deletedAt) {
+        continue
+      }
+
+      vscodeSnippets[s.name] = {
+        scope: "",
+        prefix: s.vscodeSnippet.prefix
+          .split(",")
+          .map((v) => v.trim())
+          .filter(Boolean),
+        body: [await actions.readSnippetContent(s.id)],
+      }
+    }
+
+    const snippetsDir = "Library/Application Support/Code/User/snippets"
+    await fs.createDir(snippetsDir, {
+      dir: BaseDirectory.Home,
+      recursive: true,
+    })
+    await fs.writeTextFile(
+      `${snippetsDir}/dropcode.code-snippets`,
+      JSON.stringify(vscodeSnippets, null, 2),
+      { dir: BaseDirectory.Home }
+    )
   },
 }

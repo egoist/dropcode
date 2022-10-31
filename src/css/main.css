@@ -37,6 +37,10 @@ body {
   @apply cursor-default;
 }
 
+.input {
+  @apply border rounded-lg px-2 h-8 inline-flex items-center focus:ring ring-blue-500 focus:border-blue-500;
+}
+
 .modal {
   @apply z-10 text-sm overflow-hidden  bg-white  fixed top-0 left-1/2 w-[500px] transform -translate-x-1/2;
   box-shadow: 0 0 8px #969696;
