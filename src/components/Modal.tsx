@@ -232,19 +232,27 @@ export const FolderHistoryModal = (props: {
 }
 
 export const VSCodeSnippetSettingsModal = (props: {
-  snippet: Snippet
-  open: boolean
-  setOpen: (open: boolean) => void
+  snippetId: string | undefined
+  close: () => void
 }) => {
   const closeModal = () => {
-    props.setOpen(false)
+    props.close()
   }
 
   const [getPrefix, setPrefix] = createSignal("")
+  const getSnippet = createMemo(() =>
+    props.snippetId
+      ? state.snippets.find((s) => s.id === props.snippetId)
+      : undefined
+  )
 
   const save = async () => {
-    await actions.updateSnippet(props.snippet.id, "vscodeSnippet", {
-      ...props.snippet.vscodeSnippet,
+    const snippet = getSnippet()
+
+    if (!snippet) return
+
+    await actions.updateSnippet(snippet.id, "vscodeSnippet", {
+      ...snippet.vscodeSnippet,
       prefix: getPrefix(),
     })
   }
@@ -252,15 +260,15 @@ export const VSCodeSnippetSettingsModal = (props: {
   const onSubmit = async (e: SubmitEvent) => {
     e.preventDefault()
     await save()
-    props.setOpen(false)
+    closeModal()
   }
 
   createEffect(() => {
-    setPrefix(props.snippet.vscodeSnippet?.prefix || "")
+    setPrefix(getSnippet()?.vscodeSnippet?.prefix || "")
   })
 
   return (
-    <Show when={props.open}>
+    <Show when={props.snippetId}>
       <Modal close={closeModal}>
         <div class="p-5">
           <div class="text-lg font-medium mb-5">

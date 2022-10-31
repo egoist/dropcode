@@ -11,6 +11,8 @@ import { getLanguageName, languages } from "../lib/languages"
 import { debounce } from "../lib/utils"
 import { actions, state } from "../store"
 import { Button } from "../components/Button"
+import { timeago } from "../lib/date"
+import { tooltip } from "../lib/tooltip"
 
 export const Snippets = () => {
   const goto = useNavigate()
@@ -27,7 +29,7 @@ export const Snippets = () => {
     []
   )
   const [getOpenVSCodeSnippetSettingsModal, setOpenVSCodeSnippetSettingsModal] =
-    createSignal(false)
+    createSignal<string | undefined>()
 
   let searchInputEl: HTMLInputElement | undefined
 
@@ -306,7 +308,7 @@ export const Snippets = () => {
                       id: snippet.id,
                     }).toString()}`}
                     classList={{
-                      "text-sm flex px-2 select-none rounded-lg h-7 items-center cursor":
+                      "group text-sm px-2 block select-none rounded-lg py-1 cursor":
                         true,
                       "bg-blue-500": isSidebarSnippetActive(snippet.id),
                       "hover:bg-zinc-100": !isSidebarSnippetActive(snippet.id),
@@ -324,7 +326,51 @@ export const Snippets = () => {
                       }
                     }}
                   >
-                    <span class="truncate">{snippet.name}</span>
+                    <div class="truncate">{snippet.name}</div>
+                    <div
+                      class="text-xs grid grid-cols-2 gap-1 mt-[1px]"
+                      classList={{
+                        "text-zinc-300 group-hover:text-zinc-400":
+                          !isSidebarSnippetActive(snippet.id),
+                        "text-blue-100": isSidebarSnippetActive(snippet.id),
+                      }}
+                    >
+                      <span class="truncate">{timeago(snippet.createdAt)}</span>
+                      <div class="flex justify-end items-center">
+                        <button
+                          type="button"
+                          use:tooltip={{
+                            content: snippet.vscodeSnippet?.prefix
+                              ? snippet.vscodeSnippet.prefix
+                              : "Set Snippet Prefix",
+                            placement: "top-end",
+                          }}
+                          class="cursor flex justify-end items-center max-w-full"
+                          classList={{
+                            "hover:text-white": isSidebarSnippetActive(
+                              snippet.id
+                            ),
+                            "hover:text-zinc-500": !isSidebarSnippetActive(
+                              snippet.id
+                            ),
+                          }}
+                          onClick={(e) => {
+                            setOpenVSCodeSnippetSettingsModal(snippet.id)
+                          }}
+                        >
+                          <Show
+                            when={snippet.vscodeSnippet?.prefix}
+                            fallback={
+                              <span class="i-fluent:key-command-16-filled text-inherit"></span>
+                            }
+                          >
+                            <span class="truncate">
+                              {snippet.vscodeSnippet!.prefix}
+                            </span>
+                          </Show>
+                        </button>
+                      </div>
+                    </div>
                   </Link>
                 )
               }}
@@ -364,7 +410,9 @@ export const Snippets = () => {
                     <button
                       type="button"
                       class="cursor w-full px-3 h-6 flex items-center whitespace-nowrap hover:bg-zinc-100"
-                      onClick={() => setOpenVSCodeSnippetSettingsModal(true)}
+                      onClick={() =>
+                        setOpenVSCodeSnippetSettingsModal(snippet()!.id)
+                      }
                     >
                       VSCode snippet
                     </button>
@@ -412,13 +460,10 @@ export const Snippets = () => {
         open={getOpenFolderHistoryModal()}
         setOpen={setOpenFolderHistoryModal}
       />
-      <Show when={snippet()}>
-        <VSCodeSnippetSettingsModal
-          open={getOpenVSCodeSnippetSettingsModal()}
-          setOpen={setOpenVSCodeSnippetSettingsModal}
-          snippet={snippet()!}
-        />
-      </Show>
+      <VSCodeSnippetSettingsModal
+        snippetId={getOpenVSCodeSnippetSettingsModal()}
+        close={() => setOpenVSCodeSnippetSettingsModal(undefined)}
+      />
       <div
         classList={{
           "-bottom-10": getSelectedSnippetIds().length === 0,

@@ -242,10 +242,12 @@ export const actions = {
       recursive: true,
     })
 
-    await fs.writeTextFile(
-      `${snippetsDir}/dropcode-${state.folder.split("/").pop()}.code-snippets`,
-      JSON.stringify(vscodeSnippets, null, 2),
-      { dir: BaseDirectory.Home }
-    )
+    const filepath = `${snippetsDir}/dropcode-${state.folder
+      .split("/")
+      .pop()}.code-snippets`
+    console.log("writing", filepath)
+    await fs.writeTextFile(filepath, JSON.stringify(vscodeSnippets, null, 2), {
+      dir: BaseDirectory.Home,
+    })
   },
 }
