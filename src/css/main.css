@@ -1,0 +1,66 @@
+:root {
+  --sidebar-header-height: 40px;
+  --sidebar-body-height: calc(100% - var(--sidebar-header-height));
+  --border-color: theme("colors.zinc.200");
+}
+
+body {
+  @apply overflow-x-hidden;
+}
+
+.shadow-border-b {
+  box-shadow: 0 1px var(--border-color);
+}
+
+.sidebar-header {
+  height: var(--sidebar-header-height);
+}
+
+.show-search {
+  --sidebar-header-height: 100px;
+  --sidebar-body-height: calc(100% - var(--sidebar-header-height));
+}
+
+.sidebar-body {
+  height: var(--sidebar-body-height);
+}
+
+.cm-editor {
+  @apply h-full;
+}
+
+.cm-scroller {
+  @apply font-mono !important;
+}
+
+.cursor {
+  @apply cursor-default;
+}
+
+.modal {
+  @apply z-10 text-sm overflow-hidden  bg-white  fixed top-0 left-1/2 w-[500px] transform -translate-x-1/2;
+  box-shadow: 0 0 8px #969696;
+}
+
+.modal-content {
+  @apply max-h-[500px] overflow-y-auto;
+}
+
+.custom-scrollbar::-webkit-scrollbar,
+.cm-scroller::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track,
+.cm-scroller::-webkit-scrollbar-track {
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb,
+.cm-scroller::-webkit-scrollbar-thumb {
+  @apply opacity-0 bg-zinc-300 hover:bg-zinc-400;
+}
+
+.scrollbar-group.custom-scrollbar:hover::-webkit-scrollbar-thumb,
+.cm-editor:hover .cm-scroller::-webkit-scrollbar-thumb {
+  @apply opacity-100;
+}
