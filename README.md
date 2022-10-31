@@ -4,6 +4,10 @@ Dropcode is a simple and lightweight code snippet manager. It's built with Tauri
 
 Dropcode is local-only, you can use iCloud / Dropbox / Google Drive / etc. to sync your snippets.
 
+## Download
+
+[Download the latest release](https://github.com/egoist/dropcode/releases/latest).
+
 ## Tips
 
 ### Move multiple snippets to Trash
