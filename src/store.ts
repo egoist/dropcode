@@ -136,21 +136,25 @@ export const actions = {
     value: V
   ) => {
     if (!state.folder) return
+
     const snippets = state.snippets.map((snippet) => {
       if (snippet.id === id) {
         return { ...snippet, [key]: value, updatedAt: new Date().toISOString() }
       }
       return snippet
     })
-    await writeSnippetsJson(state.folder, snippets)
+
     setState("snippets", snippets)
+
+    await writeSnippetsJson(state.folder, snippets)
+    await actions.syncSnippetsToVscode()
   },
 
   updateSnippetContent: async (id: string, content: string) => {
     if (!state.folder) return
 
     await fs.writeTextFile(await path.join(state.folder, id), content)
-    actions.updateSnippet(id, "updatedAt", new Date().toISOString())
+    await actions.updateSnippet(id, "updatedAt", new Date().toISOString())
   },
 
   moveSnippetsToTrash: async (ids: string[], restore = false) => {
@@ -165,12 +169,16 @@ export const actions = {
       }
       return snippet
     })
-    await writeSnippetsJson(state.folder, snippets)
+
     setState("snippets", snippets)
+
+    await writeSnippetsJson(state.folder, snippets)
+    await actions.syncSnippetsToVscode()
   },
 
   deleteSnippetForever: async (id: string) => {
     if (!state.folder) return
+
     const snippets = state.snippets.filter((snippet) => {
       return id !== snippet.id
     })
@@ -206,6 +214,8 @@ export const actions = {
   },
 
   syncSnippetsToVscode: async () => {
+    if (!state.folder) return
+
     const vscodeSnippets: Record<
       string,
       { scope: string; prefix: string[]; body: string[] }
@@ -231,8 +241,9 @@ export const actions = {
       dir: BaseDirectory.Home,
       recursive: true,
     })
+
     await fs.writeTextFile(
-      `${snippetsDir}/dropcode.code-snippets`,
+      `${snippetsDir}/dropcode-${state.folder.split("/").pop()}.code-snippets`,
       JSON.stringify(vscodeSnippets, null, 2),
       { dir: BaseDirectory.Home }
     )

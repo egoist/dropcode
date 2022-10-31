@@ -255,12 +255,6 @@ export const VSCodeSnippetSettingsModal = (props: {
     props.setOpen(false)
   }
 
-  const saveAndSync = async () => {
-    await save()
-    await actions.syncSnippetsToVscode()
-    props.setOpen(false)
-  }
-
   createEffect(() => {
     setPrefix(props.snippet.vscodeSnippet?.prefix || "")
   })
@@ -296,16 +290,9 @@ export const VSCodeSnippetSettingsModal = (props: {
             <div class="mt-5 space-x-2">
               <button
                 type="submit"
-                class="cursor text-white border border-blue-500 bg-blue-500 active:bg-blue-600 active:border-blue-600 rounded-lg px-3 inline-flex h-8 items-center"
+                class="cursor border bg-zinc-50 active:border-zinc-200 active:bg-zinc-200 rounded-lg px-3 inline-flex h-8 items-center"
               >
                 Save
-              </button>
-              <button
-                type="button"
-                class="cursor border bg-zinc-50 active:border-zinc-200 active:bg-zinc-200 rounded-lg px-3 inline-flex h-8 items-center"
-                onClick={saveAndSync}
-              >
-                Save & Sync to VSCode
               </button>
             </div>
           </form>
