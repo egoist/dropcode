@@ -1,4 +1,4 @@
-import { Route, Routes } from "solid-app-router"
+import { Route, Routes } from "@solidjs/router"
 import { onMount, Show } from "solid-js"
 import { Home } from "../screens/Home"
 import { Snippets } from "../screens/Snippets"

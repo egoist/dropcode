@@ -1,5 +1,5 @@
 import { dialog } from "@tauri-apps/api"
-import { useNavigate } from "solid-app-router"
+import { useNavigate } from "@solidjs/router"
 
 export const useOpenFolderDialog = () => {
   const goto = useNavigate()

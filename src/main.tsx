@@ -3,7 +3,7 @@ import "uno.css"
 import "./css/tailwind.css"
 import "./css/main.css"
 import { render } from "solid-js/web"
-import { Router } from "solid-app-router"
+import { Router } from "@solidjs/router"
 
 import { App } from "./components/App"
 

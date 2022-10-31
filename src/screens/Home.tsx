@@ -1,4 +1,4 @@
-import { useNavigate } from "solid-app-router"
+import { useNavigate } from "@solidjs/router"
 import { onMount } from "solid-js"
 import { useOpenFolderDialog } from "../lib/open-folder"
 import { state } from "../store"

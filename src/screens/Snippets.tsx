@@ -1,4 +1,4 @@
-import { Link, useNavigate, useSearchParams } from "solid-app-router"
+import { Link, useNavigate, useSearchParams } from "@solidjs/router"
 import { createEffect, createMemo, createSignal, For, on, Show } from "solid-js"
 import { confirm } from "@tauri-apps/api/dialog"
 import { Editor } from "../components/Editor"
