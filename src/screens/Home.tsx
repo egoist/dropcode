@@ -21,7 +21,7 @@ export const Home = () => {
     <div class="h-screen flex items-center justify-center">
       <button
         onClick={openFolder}
-        class="cursor border rounded-lg shadow-sm h-10 px-3 active:bg-zinc-100"
+        class="cursor border rounded-lg shadow-sm h-10 px-3 active:bg-zinc-100 dark:active:bg-zinc-700"
       >
         Open Folder
       </button>
