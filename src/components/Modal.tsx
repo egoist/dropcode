@@ -89,7 +89,7 @@ const PromptModal = (props: {
           ref={input}
           placeholder={props.placeholder}
           spellcheck={false}
-          class="w-full bg-zinc-100 px-1 h-6 flex items-center"
+          class="w-full bg-zinc-100 dark:bg-zinc-700 focus:ring px-1 h-6 flex items-center"
           value={props.keyword}
           onInput={(e) => props.setKeyword(e.currentTarget.value)}
           onKeyDown={(e) => {
@@ -123,8 +123,9 @@ const PromptModal = (props: {
               id={`item-${index()}`}
               class="px-2 py-1 cursor flex items-center text-center space-x-1"
               classList={{
-                "bg-zinc-200": getSelectedIndex() === index(),
-                "hover:bg-zinc-100": getSelectedIndex() !== index(),
+                "bg-zinc-200 dark:bg-zinc-700": getSelectedIndex() === index(),
+                "hover:bg-zinc-100 dark:hover:bg-zinc-700":
+                  getSelectedIndex() !== index(),
               }}
               onClick={item.onClick}
             >
@@ -298,7 +299,7 @@ export const VSCodeSnippetSettingsModal = (props: {
             <div class="mt-5 space-x-2">
               <button
                 type="submit"
-                class="cursor border bg-zinc-50 active:border-zinc-200 active:bg-zinc-200 rounded-lg px-3 inline-flex h-8 items-center"
+                class="cursor border bg-zinc-50 dark:bg-zinc-700 active:border-zinc-200 active:bg-zinc-200 dark:active:border-zinc-600 dark:active:bg-zinc-600 rounded-lg px-3 inline-flex h-8 items-center"
               >
                 Save
               </button>

@@ -3,6 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      function checkDarkMode() {
+        const query = "(prefers-color-scheme: dark)"
+
+        /**
+         * @param {MediaQueryListEvent} e
+         */
+        const onChange = (e) => {
+          if (e.matches) {
+            document.documentElement.classList.add("dark")
+          } else {
+            document.documentElement.classList.remove("dark")
+          }
+        }
+
+        const mql = window.matchMedia(query)
+        onChange(mql)
+        mql.addEventListener("change", onChange)
+      }
+
+      checkDarkMode()
+    </script>
   </head>
 
   <body>

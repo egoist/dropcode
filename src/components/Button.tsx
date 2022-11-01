@@ -24,7 +24,8 @@ export const Button = (props: {
           "w-6": !props.children,
           "w-full": props.isFull,
           "bg-blue-500 text-white": props.isActive,
-          "hover:bg-zinc-200": !props.isActive,
+          "hover:bg-zinc-200 dark:hover:text-white dark:hover:bg-zinc-600":
+            !props.isActive,
           "hint--bottom hint--rounded hint--no-animate": Boolean(props.tooltip),
         }}
         onClick={props.onClick}

@@ -1,11 +1,27 @@
 :root {
+  --app-bg: #fff;
+  --app-fg: #000;
   --sidebar-header-height: 40px;
   --sidebar-body-height: calc(100% - var(--sidebar-header-height));
   --border-color: theme("colors.zinc.200");
 }
 
+.dark {
+  --app-bg: theme("colors.zinc.800");
+  --app-fg: theme("colors.zinc.300");
+  --border-color: theme("colors.zinc.600");
+}
+
+*,
+*:before,
+*:after {
+  border-color: var(--border-color);
+}
+
 body {
   @apply overflow-x-hidden;
+  color: var(--app-fg);
+  background-color: var(--app-bg);
 }
 
 .shadow-border-b {
@@ -38,11 +54,11 @@ body {
 }
 
 .input {
-  @apply border rounded-lg px-2 h-8 inline-flex items-center focus:ring ring-blue-500 focus:border-blue-500;
+  @apply border bg-transparent rounded-lg px-2 h-8 inline-flex items-center focus:ring ring-blue-500 focus:border-blue-500;
 }
 
 .modal {
-  @apply z-10 text-sm overflow-hidden  bg-white  fixed top-0 left-1/2 w-[500px] transform -translate-x-1/2;
+  @apply z-10 text-sm overflow-hidden bg-white dark:bg-zinc-800 fixed top-0 left-1/2 w-[500px] transform -translate-x-1/2;
   box-shadow: 0 0 8px #969696;
 }
 
@@ -61,7 +77,7 @@ body {
 
 .custom-scrollbar::-webkit-scrollbar-thumb,
 .cm-scroller::-webkit-scrollbar-thumb {
-  @apply opacity-0 bg-zinc-300 hover:bg-zinc-400;
+  @apply opacity-0 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-700/75;
 }
 
 .scrollbar-group.custom-scrollbar:hover::-webkit-scrollbar-thumb,

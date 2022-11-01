@@ -20,6 +20,7 @@ specifiers:
   '@tauri-apps/api': ^1.1.0
   '@tauri-apps/cli': ^1.1.0
   '@types/node': ^18.7.10
+  '@uiw/codemirror-theme-github': ^4.12.4
   '@vitejs/plugin-react': ^2.0.0
   autoprefixer: ^10.4.12
   codemirror: ^6.0.1
@@ -50,6 +51,7 @@ dependencies:
   '@preact/signals': 1.1.2
   '@solidjs/router': 0.5.0_solid-js@1.6.0
   '@tauri-apps/api': 1.1.0
+  '@uiw/codemirror-theme-github': 4.12.4_t5syuzsao6c727p33gq5vq43zm
   codemirror: 6.0.1
   dayjs: 1.11.6
   solid-floating-ui: 0.1.0_debms7fwfhtuw5f6vv5wjux7au
@@ -929,6 +931,26 @@ packages:
   /@types/node/18.11.7:
     resolution: {integrity: sha512-LhFTglglr63mNXUSRYD8A+ZAIu5sFqNJ4Y2fPuY7UlrySJH87rRRlhtVmMHplmfk5WkoJGmDjE9oiTfyX94CpQ==}
     dev: true
+
+  /@uiw/codemirror-theme-github/4.12.4_t5syuzsao6c727p33gq5vq43zm:
+    resolution: {integrity: sha512-ni5/u6aqv+4Nq5i7BaQiDFmZGu/+BhoptjxvNBlqJjVuYeUfv27zFTdcaFf2GKVL7mPMX4Q4MltVGKDYoWe14Q==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.12.4_t5syuzsao6c727p33gq5vq43zm
+    transitivePeerDependencies:
+      - '@codemirror/language'
+      - '@codemirror/state'
+    dev: false
+
+  /@uiw/codemirror-themes/4.12.4_t5syuzsao6c727p33gq5vq43zm:
+    resolution: {integrity: sha512-ekySMFlXaJ4u0TCz/caHG8HqJPT0+viUA2ZQ4yZ+F1z2Lk9HgMS/1YfRj8vHuEUPNXc9Fsy5qxwTp7I1hEanEg==}
+    peerDependencies:
+      '@codemirror/language': '>=6.0.0'
+      '@codemirror/state': '>=6.0.0'
+    dependencies:
+      '@codemirror/language': 6.3.0
+      '@codemirror/state': 6.1.2
+      '@codemirror/view': 6.4.0
+    dev: false
 
   /@unocss/astro/0.46.1_vite@3.2.0:
     resolution: {integrity: sha512-5WfDZNFwqLaAykXmly049nk6k6cZ4ZYFbmO/ijcbxeemx1Pduq3J9FfMznL8KBxXLs/S/kE174X6TtOMrVp//Q==}

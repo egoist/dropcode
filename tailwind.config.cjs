@@ -3,7 +3,8 @@ const mainHeaderHeight = 40
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{ts,tsx}"],
+  darkMode: "class",
+  content: ["./src/**/*.{ts,tsx}", "./index.html"],
   theme: {
     extend: {
       height: {

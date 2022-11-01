@@ -207,7 +207,7 @@ export const Snippets = () => {
           class="border-r w-64 shrink-0 h-full"
           classList={{ "show-search": getSearchType() !== null }}
         >
-          <div class="sidebar-header text-zinc-500 text-xs">
+          <div class="sidebar-header text-zinc-500 dark:text-zinc-300 text-xs">
             <div
               class="flex items-center justify-between px-2"
               classList={{
@@ -262,16 +262,17 @@ export const Snippets = () => {
             <Show when={getSearchType()}>
               <div class="px-3">
                 <div class="flex justify-between h-1/5 pb-1 text-xs">
-                  <span class="text-zinc-500">
+                  <span class="text-zinc-500 dark:text-zinc-300">
                     {getSearchType() === "trash" ? "Trash" : "Search"}
                   </span>
                   <Show when={getSearchType() === "trash"}>
                     <button
                       type="button"
                       disabled={snippets().length === 0}
-                      class="cursor bg-white whitespace-nowrap border-zinc-400 border h-5/6 rounded-md px-2 flex items-center"
+                      class="cursor whitespace-nowrap border-zinc-400 dark:border-zinc-600 border h-5/6 rounded-md px-2 flex items-center"
                       classList={{
-                        "active:bg-zinc-200": snippets().length !== 0,
+                        "active:bg-zinc-200 dark:active:bg-zinc-700":
+                          snippets().length !== 0,
                         "disabled:opacity-50": true,
                       }}
                       onClick={emptyTrash}
@@ -284,7 +285,7 @@ export const Snippets = () => {
                   <input
                     ref={searchInputEl}
                     spellcheck={false}
-                    class="h-7 w-full flex items-center px-2 border rounded-lg focus:ring focus:border-blue-500 ring-blue-500 focus:outline-none"
+                    class="h-7 w-full flex items-center px-2 border rounded-lg bg-transparent focus:ring focus:border-blue-500 ring-blue-500 focus:outline-none"
                     value={getSearchKeyword()!}
                     onInput={(e) => setSearchKeyword(e.currentTarget.value)}
                     onKeyPress={(e) => {
@@ -298,7 +299,7 @@ export const Snippets = () => {
               </div>
             </Show>
           </div>
-          <div class="sidebar-body overflow-y-auto custom-scrollbar scrollbar-group p-2 pt-0 space-y-1">
+          <div class="sidebar-body group/sidebar-body overflow-y-auto custom-scrollbar scrollbar-group p-2 pt-0 space-y-1">
             <For each={snippets()}>
               {(snippet) => {
                 return (
@@ -311,7 +312,8 @@ export const Snippets = () => {
                       "group text-sm px-2 block select-none rounded-lg py-1 cursor":
                         true,
                       "bg-blue-500": isSidebarSnippetActive(snippet.id),
-                      "hover:bg-zinc-100": !isSidebarSnippetActive(snippet.id),
+                      "hover:bg-zinc-100 dark:hover:bg-zinc-600":
+                        !isSidebarSnippetActive(snippet.id),
                       "text-white": isSidebarSnippetActive(snippet.id),
                     }}
                     onClick={(e) => {
@@ -330,13 +332,13 @@ export const Snippets = () => {
                     <div
                       class="text-xs grid grid-cols-2 gap-1 mt-[1px]"
                       classList={{
-                        "text-zinc-300 group-hover:text-zinc-400":
+                        "text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-400":
                           !isSidebarSnippetActive(snippet.id),
                         "text-blue-100": isSidebarSnippetActive(snippet.id),
                       }}
                     >
                       <span class="truncate">{timeago(snippet.createdAt)}</span>
-                      <div class="flex justify-end items-center">
+                      <div class="flex justify-end items-center opacity-0 group-hover/sidebar-body:opacity-100">
                         <button
                           type="button"
                           use:tooltip={{
@@ -392,10 +394,10 @@ export const Snippets = () => {
               <input
                 spellcheck={false}
                 value={snippet()!.name}
-                class="w-full h-full focus:outline-none"
+                class="w-full h-full focus:outline-none bg-transparent"
                 onInput={(e) => updateSnippetName(e.currentTarget.value)}
               />
-              <div class="flex items-center text-xs text-zinc-500 space-x-1">
+              <div class="flex items-center text-xs text-zinc-500 dark:text-zinc-300 space-x-1">
                 <Button
                   type="button"
                   icon="i-majesticons:curly-braces"
@@ -406,10 +408,13 @@ export const Snippets = () => {
                 </Button>
                 <div class="group relative">
                   <Button icon="i-ic:baseline-more-horiz"></Button>
-                  <div class="hidden absolute bg-white z-10 py-1 right-0 min-w-[100px] border rounded-lg shadow group-hover:block">
+                  <div
+                    aria-label="Dropdown"
+                    class="hidden absolute bg-white dark:bg-zinc-700 z-10 py-1 right-0 min-w-[100px] border rounded-lg shadow group-hover:block"
+                  >
                     <button
                       type="button"
-                      class="cursor w-full px-3 h-6 flex items-center whitespace-nowrap hover:bg-zinc-100"
+                      class="cursor w-full px-3 h-6 flex items-center whitespace-nowrap hover:bg-zinc-100 dark:hover:text-white dark:hover:bg-zinc-500"
                       onClick={() =>
                         setOpenVSCodeSnippetSettingsModal(snippet()!.id)
                       }
@@ -418,7 +423,7 @@ export const Snippets = () => {
                     </button>
                     <button
                       type="button"
-                      class="cursor w-full px-3 h-6 flex items-center whitespace-nowrap hover:bg-zinc-100"
+                      class="cursor w-full px-3 h-6 flex items-center whitespace-nowrap hover:bg-zinc-100 dark:hover:text-white dark:hover:bg-zinc-500"
                       onClick={() => moveSnippetToTrashOrRestore(snippet()!.id)}
                     >
                       {snippet()!.deletedAt
@@ -474,7 +479,7 @@ export const Snippets = () => {
       >
         <button
           type="button"
-          class="cursor inline-flex items-center bg-white rounded-lg shadow border px-3 h-9 hover:bg-zinc-100"
+          class="cursor inline-flex items-center bg-white dark:bg-zinc-700 rounded-lg shadow border px-3 h-9 hover:bg-zinc-100"
           onClick={moveSelectedSnippetsToTrashOrRestore}
         >
           {getSearchType() === "trash"

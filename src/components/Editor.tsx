@@ -1,6 +1,8 @@
 import { basicSetup, EditorView } from "codemirror"
 import { EditorState, type Extension } from "@codemirror/state"
 import { createEffect, createSignal, onCleanup, onMount } from "solid-js"
+import { githubDark, githubLight } from "@uiw/codemirror-theme-github"
+import { useDarkMode } from "../lib/darkmode"
 
 export const Editor = (props: {
   value: string
@@ -9,6 +11,7 @@ export const Editor = (props: {
 }) => {
   let el: HTMLDivElement | undefined
   const [getView, setView] = createSignal<EditorView | undefined>()
+  const isDarkMode = useDarkMode()
 
   onMount(() => {
     const handleUpdate = EditorView.updateListener.of((update) => {
@@ -22,6 +25,7 @@ export const Editor = (props: {
         state: EditorState.create({
           doc: "",
           extensions: [
+            isDarkMode() ? githubDark : githubLight,
             basicSetup,
             handleUpdate,
             EditorView.lineWrapping,
