@@ -22,6 +22,19 @@ Configure snippet triggers and sync them to VSCode:
 
 https://user-images.githubusercontent.com/8784712/198997523-464d5639-2f10-46ad-b9e1-5b019806163b.mp4
 
+## Development
+
+Build and run this app from source:
+
+1. Install Node.js
+2. Install pnpm
+3. Install Rust
+
+```bash
+pnpm i
+pnpm tauri dev
+```
+
 ## License
 
 Dropcode is licensed under the MIT license. See [LICENSE](LICENSE) for more information.
