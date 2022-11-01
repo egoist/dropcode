@@ -27,6 +27,8 @@ specifiers:
   autoprefixer: ^10.4.12
   codemirror: ^6.0.1
   dayjs: ^1.11.6
+  esbuild: ^0.15.12
+  esbuild-register: ^3.3.3
   solid-floating-ui: ^0.1.0
   solid-js: ^1.6.0
   tailwindcss: ^3.2.1
@@ -69,6 +71,8 @@ devDependencies:
   '@types/node': 18.11.7
   '@vitejs/plugin-react': 2.2.0_vite@3.2.0
   autoprefixer: 10.4.12
+  esbuild: 0.15.12
+  esbuild-register: 3.3.3_esbuild@0.15.12
   tailwindcss: 3.2.1
   tailwindcss-animate: 1.0.5_tailwindcss@3.2.1
   typescript: 4.8.4
@@ -1581,6 +1585,14 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /esbuild-register/3.3.3_esbuild@0.15.12:
+    resolution: {integrity: sha512-eFHOkutgIMJY5gc8LUp/7c+LLlDqzNi9T6AwCZ2WKKl3HmT+5ef3ZRyPPxDOynInML0fgaC50yszPKfPnjC0NQ==}
+    peerDependencies:
+      esbuild: '>=0.12 <1'
+    dependencies:
+      esbuild: 0.15.12
+    dev: true
 
   /esbuild-sunos-64/0.15.12:
     resolution: {integrity: sha512-nkl251DpoWoBO9Eq9aFdoIt2yYmp4I3kvQjba3jFKlMXuqQ9A4q+JaqdkCouG3DHgAGnzshzaGu6xofGcXyPXg==}
