@@ -15,6 +15,7 @@ render(
   document.getElementById("root")!
 )
 
-if (import.meta.env.PROD) {
-  import("./lib/sentry").then((res) => res.initSentry())
-}
+// TODO: make error reporting opt-in in the next release
+// if (import.meta.env.PROD) {
+//   import("./lib/sentry").then((res) => res.initSentry())
+// }
