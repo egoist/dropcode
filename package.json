@@ -24,6 +24,8 @@
     "@codemirror/state": "^6.1.2",
     "@floating-ui/dom": "^1.0.3",
     "@preact/signals": "^1.1.2",
+    "@sentry/browser": "^7.17.3",
+    "@sentry/tracing": "^7.17.3",
     "@solidjs/router": "^0.5.0",
     "@tauri-apps/api": "^1.1.0",
     "@uiw/codemirror-theme-github": "^4.12.4",

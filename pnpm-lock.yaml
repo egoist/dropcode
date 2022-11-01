@@ -16,6 +16,8 @@ specifiers:
   '@floating-ui/dom': ^1.0.3
   '@iconify/json': ^2.1.130
   '@preact/signals': ^1.1.2
+  '@sentry/browser': ^7.17.3
+  '@sentry/tracing': ^7.17.3
   '@solidjs/router': ^0.5.0
   '@tauri-apps/api': ^1.1.0
   '@tauri-apps/cli': ^1.1.0
@@ -49,6 +51,8 @@ dependencies:
   '@codemirror/state': 6.1.2
   '@floating-ui/dom': 1.0.3
   '@preact/signals': 1.1.2
+  '@sentry/browser': 7.17.3
+  '@sentry/tracing': 7.17.3
   '@solidjs/router': 0.5.0_solid-js@1.6.0
   '@tauri-apps/api': 1.1.0
   '@uiw/codemirror-theme-github': 4.12.4_t5syuzsao6c727p33gq5vq43zm
@@ -809,6 +813,48 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
     dev: true
+
+  /@sentry/browser/7.17.3:
+    resolution: {integrity: sha512-Oi7ZNMzCbUXaWwkFcwXIWhfNiTy8s0EukoaKzwSdIhU5pLH9HFizXMl/qrBdxC6keTtckTwS9c+w2xDnqln1fg==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.17.3
+      '@sentry/types': 7.17.3
+      '@sentry/utils': 7.17.3
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/core/7.17.3:
+    resolution: {integrity: sha512-PSboa9aOVnvZU+C6/shKlHUA7zjAl6z5BKRHF8mEljEYql6bh0HfJJKXtBHMz1sWnmzMa/qABSKLpnP5ZQlJNw==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.17.3
+      '@sentry/utils': 7.17.3
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/tracing/7.17.3:
+    resolution: {integrity: sha512-ZBYq1AuE2dadxbuY7j3xpf9BNP/Uu7rjuvLoCmQeFrjJ4W80jqIfdUYmWCN6EaVhhAgh7J+1RQL+c79ONkPFQQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.17.3
+      '@sentry/types': 7.17.3
+      '@sentry/utils': 7.17.3
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/types/7.17.3:
+    resolution: {integrity: sha512-+buEJo/4TKErjwF8Tq3XXKFZx4Utpvqs52e7i7Sur2qfyBNwRgBILceQvdnzw86JNZT2myeYmrfVbsaxAk7ilA==}
+    engines: {node: '>=8'}
+    dev: false
+
+  /@sentry/utils/7.17.3:
+    resolution: {integrity: sha512-Sd7BwVn6IClvaXbZaj/LnEcrMm8yjQtZkTVSrM2Vlv1lLeaH61JxSAFU6QntF+f/cCfZ7wSdNhWOfW3qZJ7t3Q==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.17.3
+      tslib: 1.14.1
+    dev: false
 
   /@solidjs/router/0.5.0_solid-js@1.6.0:
     resolution: {integrity: sha512-rNR07l21tWWDVmCbaapggB89rEX7jlM2XChpTLqEGEnj46LzVZ8zgvjcF6NNKScByAlLpoQUkVIjB2KHpcMi+w==}
@@ -2260,6 +2306,10 @@ packages:
   /ts-toolbelt/9.6.0:
     resolution: {integrity: sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==}
     dev: true
+
+  /tslib/1.14.1:
+    resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
+    dev: false
 
   /typescript/4.8.4:
     resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}

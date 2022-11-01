@@ -4,7 +4,6 @@ import "./css/tailwind.css"
 import "./css/main.css"
 import { render } from "solid-js/web"
 import { Router } from "@solidjs/router"
-
 import { App } from "./components/App"
 
 render(
@@ -15,3 +14,7 @@ render(
   ),
   document.getElementById("root")!
 )
+
+if (import.meta.env.PROD) {
+  import("./lib/sentry").then((res) => res.initSentry())
+}
