@@ -30,6 +30,7 @@
     "@uiw/codemirror-theme-github": "^4.12.4",
     "codemirror": "^6.0.1",
     "dayjs": "^1.11.6",
+    "nanoid": "^4.0.0",
     "solid-floating-ui": "^0.1.0",
     "solid-js": "^1.6.0",
     "tippy.js": "^6.3.7"

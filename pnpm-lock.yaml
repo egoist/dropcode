@@ -29,6 +29,7 @@ specifiers:
   dayjs: ^1.11.6
   esbuild: ^0.15.12
   esbuild-register: ^3.3.3
+  nanoid: ^4.0.0
   solid-floating-ui: ^0.1.0
   solid-js: ^1.6.0
   tailwindcss: ^3.2.1
@@ -60,6 +61,7 @@ dependencies:
   '@uiw/codemirror-theme-github': 4.12.4_t5syuzsao6c727p33gq5vq43zm
   codemirror: 6.0.1
   dayjs: 1.11.6
+  nanoid: 4.0.0
   solid-floating-ui: 0.1.0_debms7fwfhtuw5f6vv5wjux7au
   solid-js: 1.6.0
   tippy.js: 6.3.7
@@ -1939,6 +1941,12 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
     dev: true
+
+  /nanoid/4.0.0:
+    resolution: {integrity: sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
 
   /node-fetch-native/0.1.8:
     resolution: {integrity: sha512-ZNaury9r0NxaT2oL65GvdGDy+5PlSaHTovT6JV5tOW07k1TQmgC0olZETa4C9KZg0+6zBr99ctTYa3Utqj9P/Q==}

@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid"
 import { fs, path, dialog, invoke } from "@tauri-apps/api"
 import { BaseDirectory } from "@tauri-apps/api/fs"
 import { createStore } from "solid-js/store"
@@ -121,7 +122,7 @@ export const actions = {
   },
 
   getRandomId: () => {
-    return window.crypto.randomUUID()
+    return nanoid(10)
   },
 
   readSnippetContent: async (id: string) => {
