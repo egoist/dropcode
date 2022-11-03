@@ -1,8 +1,8 @@
 import { execSync } from "child_process"
 import tauriConf from "../src-tauri/tauri.conf.json"
 
-execSync(`tauri build --target aarch64-apple-darwin`)
-execSync(`tauri build --target x86_64-apple-darwin`)
+execSync(`tauri build --target aarch64-apple-darwin`, { stdio: "inherit" })
+execSync(`tauri build --target x86_64-apple-darwin`, { stdio: "inherit" })
 
 execSync(`rm -rf release && mkdir release`)
 
