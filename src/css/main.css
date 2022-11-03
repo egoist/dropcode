@@ -10,7 +10,7 @@
   color-scheme: dark;
   --app-bg: theme("colors.zinc.800");
   --app-fg: theme("colors.zinc.300");
-  --border-color: theme("colors.zinc.600");
+  --border-color: theme("colors.zinc.700");
 }
 
 *,
