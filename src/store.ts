@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid"
-import { fs, path, dialog, invoke } from "@tauri-apps/api"
+import { fs, path, dialog } from "@tauri-apps/api"
 import { BaseDirectory } from "@tauri-apps/api/fs"
 import { createStore } from "solid-js/store"
 
@@ -50,6 +50,12 @@ const writeAppJson = async (appData: AppData) => {
   })
 }
 
+const pathExists = async (path: string, baseDir?: BaseDirectory) => {
+  // @ts-expect-error tauri bug, actually returns a boolean
+  const exists: boolean = await fs.exists(path, { dir: baseDir })
+  return exists
+}
+
 export const actions = {
   init: async () => {
     const text = await fs
@@ -80,7 +86,7 @@ export const actions = {
   },
 
   loadFolder: async (folder: string) => {
-    const exists = await invoke("path_exists", { path: folder })
+    const exists = await pathExists(folder)
 
     if (!exists) {
       await actions.removeFolderFromHistory(folder)
@@ -217,38 +223,70 @@ export const actions = {
   syncSnippetsToVscode: async () => {
     if (!state.folder) return
 
-    const vscodeSnippets: Record<
+    const folderName = state.folder.split(path.sep).pop()!
+
+    type VSCodeSnippets = Record<
       string,
-      { scope: string; prefix: string[]; body: string[] }
-    > = {}
+      { scope: string; prefix: string[]; body: string[]; __folderName: string }
+    >
+
+    const newSnippets: VSCodeSnippets = {}
 
     for (const s of state.snippets) {
       if (!s.vscodeSnippet?.prefix || s.deletedAt) {
         continue
       }
 
-      vscodeSnippets[s.name] = {
+      newSnippets[s.name] = {
         scope: "",
         prefix: s.vscodeSnippet.prefix
           .split(",")
           .map((v) => v.trim())
           .filter(Boolean),
         body: [await actions.readSnippetContent(s.id)],
+        __folderName: folderName,
       }
     }
 
-    const snippetsDir = "Library/Application Support/Code/User/snippets"
-    await fs.createDir(snippetsDir, {
-      dir: BaseDirectory.Home,
-      recursive: true,
-    })
+    const snippetsFileName = "dropcode.code-snippets"
+    const codeSnippetsDir = `Code${path.sep}User${path.sep}snippets`
+    const snippetsFilePath = `${codeSnippetsDir}${path.sep}${snippetsFileName}`
 
-    const filepath = `${snippetsDir}/dropcode-${state.folder
-      .split("/")
-      .pop()}.code-snippets`
-    console.log("writing", filepath)
-    await fs.writeTextFile(filepath, JSON.stringify(vscodeSnippets, null, 2), {
-      dir: BaseDirectory.Home,
+    // VSCode is not installed
+    if (!(await pathExists("Code", BaseDirectory.Data))) {
+      console.log("??")
+      return
+    }
+
+    // Get existing snippets
+    const snippets: VSCodeSnippets = (await pathExists(
+      snippetsFilePath,
+      BaseDirectory.Data
+    ))
+      ? JSON.parse(
+          await fs.readTextFile(snippetsFilePath, { dir: BaseDirectory.Data })
+        )
+      : {}
+
+    // Merge old and new snippets
+    for (const name in snippets) {
+      const snippet = snippets[name]
+      if (snippet.__folderName === folderName) {
+        delete snippets[name]
+      }
+    }
+    Object.assign(snippets, newSnippets)
+
+    // Write to file
+    console.log("writing", snippetsFilePath)
+    await fs.createDir(codeSnippetsDir, {
+      recursive: true,
+      dir: BaseDirectory.Data,
     })
+    await fs.writeTextFile(
+      snippetsFilePath,
+      JSON.stringify(snippets, null, 2),
+      { dir: BaseDirectory.Data }
+    )
   },
 }

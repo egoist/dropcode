@@ -7,6 +7,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --app-bg: theme("colors.zinc.800");
   --app-fg: theme("colors.zinc.300");
   --border-color: theme("colors.zinc.600");
@@ -22,6 +23,10 @@ body {
   @apply overflow-x-hidden;
   color: var(--app-fg);
   background-color: var(--app-bg);
+}
+
+input:focus {
+  outline: none;
 }
 
 .shadow-border-b {

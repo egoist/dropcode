@@ -14,7 +14,7 @@
       "all": true,
       "fs": {
         "all": true,
-        "scope": ["/*"]
+        "scope": ["**"]
       }
     },
     "bundle": {
@@ -25,7 +25,11 @@
         "depends": []
       },
       "externalBin": [],
-      "icon": ["icons/web/icon-512.png", "icons/macos/AppIcon.icns"],
+      "icon": [
+        "icons/web/icon-512.png",
+        "icons/web/icon-192.ico",
+        "icons/macos/AppIcon.icns"
+      ],
       "identifier": "dev.egoist.dropcode",
       "longDescription": "",
       "macOS": {

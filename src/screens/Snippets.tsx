@@ -13,6 +13,7 @@ import { actions, state } from "../store"
 import { Button } from "../components/Button"
 import { timeago } from "../lib/date"
 import { tooltip } from "../lib/tooltip"
+import { path } from "@tauri-apps/api"
 
 export const Snippets = () => {
   const goto = useNavigate()
@@ -222,7 +223,7 @@ export const Snippets = () => {
                 icon="i-bi:folder"
                 class="-ml-[1px] max-w-[50%]"
               >
-                {state.folder?.split("/").pop()}
+                {state.folder?.split(path.sep).pop()}
               </Button>
               <div class="flex items-center">
                 <Button
@@ -433,7 +434,7 @@ export const Snippets = () => {
                     <Show when={snippet()!.deletedAt}>
                       <button
                         type="button"
-                        class="cursor w-full px-3 h-6 flex items-center whitespace-nowrap hover:bg-zinc-100"
+                        class="cursor w-full px-3 h-6 flex items-center whitespace-nowrap hover:bg-zinc-100 dark:hover:text-white dark:hover:bg-zinc-500"
                         onClick={() => deleteForever(snippet()!.id)}
                       >
                         Delete forever
