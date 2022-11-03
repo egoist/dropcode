@@ -6,7 +6,7 @@ Dropcode is local-only, you can use iCloud / Dropbox / Google Drive / etc. to sy
 
 ## Download
 
-[Download the latest release](https://github.com/egoist/dropcode/releases/latest).
+[Download the latest release (macOS & Windows)](https://github.com/egoist/dropcode/releases/latest).
 
 ## Tips
 
