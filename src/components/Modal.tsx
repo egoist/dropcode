@@ -249,12 +249,13 @@ export const VSCodeSnippetSettingsModal = (props: {
 
   const save = async () => {
     const snippet = getSnippet()
+    const getTrimedPrefix = () => getPrefix().trim()
 
-    if (!snippet) return
+    if (!snippet || !getTrimedPrefix()) return
 
     await actions.updateSnippet(snippet.id, "vscodeSnippet", {
       ...snippet.vscodeSnippet,
-      prefix: getPrefix(),
+      prefix: getTrimedPrefix(),
     })
   }
 
