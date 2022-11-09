@@ -18,7 +18,10 @@ export const Home = () => {
   })
 
   return (
-    <div class="h-screen flex items-center justify-center">
+    <div
+      data-tauri-drag-region
+      class="h-screen flex items-center justify-center"
+    >
       <button
         onClick={openFolder}
         class="cursor border rounded-lg shadow-sm h-10 px-3 active:bg-zinc-100 dark:active:bg-zinc-700"

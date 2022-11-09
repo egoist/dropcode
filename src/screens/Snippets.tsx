@@ -383,7 +383,10 @@ export const Snippets = () => {
         <Show
           when={snippet()}
           fallback={
-            <div class="h-full w-full flex items-center justify-center px-20 text-center text-zinc-400 text-xl">
+            <div
+              data-tauri-drag-region
+              class="h-full w-full flex items-center justify-center px-20 text-center text-zinc-400 text-xl"
+            >
               <span class="select-none">
                 Select or create a snippet from sidebar
               </span>
