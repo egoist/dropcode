@@ -257,7 +257,6 @@ export const actions = {
 
     // VSCode is not installed
     if (!(await pathExists("Code", BaseDirectory.Data))) {
-      console.log("??")
       return
     }
 

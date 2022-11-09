@@ -1,5 +1,13 @@
 import { Link, useNavigate, useSearchParams } from "@solidjs/router"
-import { createEffect, createMemo, createSignal, For, on, Show } from "solid-js"
+import {
+  createEffect,
+  createMemo,
+  createSignal,
+  For,
+  on,
+  onCleanup,
+  Show,
+} from "solid-js"
 import { confirm } from "@tauri-apps/api/dialog"
 import { Editor } from "../components/Editor"
 import {
@@ -14,6 +22,7 @@ import { Button } from "../components/Button"
 import { timeago } from "../lib/date"
 import { tooltip } from "../lib/tooltip"
 import { path } from "@tauri-apps/api"
+import { useFormControl } from "../lib/use-form-control"
 
 export const Snippets = () => {
   const goto = useNavigate()
@@ -33,6 +42,12 @@ export const Snippets = () => {
     createSignal<string | undefined>()
 
   let searchInputEl: HTMLInputElement | undefined
+  const nameInputControl = useFormControl({
+    defaultValue: "",
+    async save(value) {
+      await actions.updateSnippet(snippet()!.id, "name", value)
+    },
+  })
 
   const snippets = createMemo(() => {
     const keyword = getSearchKeyword().toLowerCase()
@@ -159,10 +174,6 @@ export const Snippets = () => {
     }
   }
 
-  const updateSnippetName = debounce((name: string) => {
-    actions.updateSnippet(snippet()!.id, "name", name)
-  }, 250)
-
   createEffect(() => {
     if (getSearchType()) {
       searchInputEl?.focus()
@@ -180,19 +191,59 @@ export const Snippets = () => {
   })
 
   // load snippets from folder
-  createEffect(() => {
-    if (!searchParams.folder) return
+  createEffect(
+    on(
+      () => [searchParams.folder],
+      () => {
+        if (!searchParams.folder) return
 
-    actions.loadFolder(searchParams.folder)
+        actions.loadFolder(searchParams.folder)
+
+        // reload snippets from folder every 2 seconds
+        const watchFolder = window.setInterval(() => {
+          actions.loadFolder(searchParams.folder)
+        }, 2000)
+
+        onCleanup(() => {
+          window.clearInterval(watchFolder)
+        })
+      }
+    )
+  )
+
+  // update nameInputEl value
+  createEffect(() => {
+    const s = snippet()
+    if (s) {
+      nameInputControl.setValue(s.name)
+    }
   })
 
-  // load snippet content
-  createEffect(async () => {
+  const loadContent = async () => {
     if (!searchParams.id) return
 
     const content = await actions.readSnippetContent(searchParams.id)
     setContent(content)
-  })
+  }
+
+  // load snippet content
+  createEffect(
+    on(
+      () => [searchParams.id],
+      () => {
+        loadContent()
+
+        // reload snippet content every 2 seconds
+        const watchFile = window.setInterval(async () => {
+          loadContent()
+        }, 2000)
+
+        onCleanup(() => {
+          window.clearInterval(watchFile)
+        })
+      }
+    )
+  )
 
   // unselect snippets
   createEffect(
@@ -399,10 +450,10 @@ export const Snippets = () => {
               class="border-b flex h-mainHeader items-center px-3 justify-between space-x-3"
             >
               <input
+                value={nameInputControl.value}
                 spellcheck={false}
-                value={snippet()!.name}
                 class="w-full h-full focus:outline-none bg-transparent"
-                onInput={(e) => updateSnippetName(e.currentTarget.value)}
+                onInput={nameInputControl.onInput}
               />
               <div class="flex items-center text-xs text-zinc-500 dark:text-zinc-300 space-x-1">
                 <Button
