@@ -56,7 +56,7 @@
       "dialog": true,
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDIxQ0E3OEIyOEZBM0U0OUIKUldTYjVLT1BzbmpLSWNxSlVoRTFJbjdkZS9OdHFXS2VtbUlXd0tDL0psbG1xM1pIU2pjZGtoV0IK",
       "endpoints": [
-        "https://updater.egoist.dev/egoist/dropcode/{{target}}/{{current_version}}"
+        "https://updater.egoist.dev/check/egoist/dropcode/{{target}}/{{arch}}/{{current_version}}"
       ]
     },
     "windows": [
