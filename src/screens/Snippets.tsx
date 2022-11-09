@@ -300,7 +300,7 @@ export const Snippets = () => {
               </div>
             </Show>
           </div>
-          <div class="sidebar-body group/sidebar-body overflow-y-auto custom-scrollbar scrollbar-group p-2 pt-0 space-y-1">
+          <div class="sidebar-body group/sidebar-body flex-1 overflow-y-auto custom-scrollbar scrollbar-group p-2 pt-0 space-y-1">
             <For each={snippets()}>
               {(snippet) => {
                 return (
@@ -343,7 +343,7 @@ export const Snippets = () => {
                         <button
                           type="button"
                           use:tooltip={{
-                            content: snippet.vscodeSnippet?.prefix
+                            content: snippet.vscodeSnippet?.prefix?.trim()
                               ? snippet.vscodeSnippet.prefix
                               : "Set Snippet Prefix",
                             placement: "top-end",
@@ -362,7 +362,7 @@ export const Snippets = () => {
                           }}
                         >
                           <Show
-                            when={snippet.vscodeSnippet?.prefix}
+                            when={snippet.vscodeSnippet?.prefix?.trim()}
                             fallback={
                               <span class="i-fluent:key-command-16-filled text-inherit"></span>
                             }

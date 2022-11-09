@@ -234,13 +234,15 @@ export const actions = {
     const newSnippets: VSCodeSnippets = {}
 
     for (const s of state.snippets) {
-      if (!s.vscodeSnippet?.prefix || s.deletedAt) {
+      const prefix = s.vscodeSnippet?.prefix?.trim()
+
+      if (!prefix || s.deletedAt) {
         continue
       }
 
       newSnippets[s.name] = {
         scope: "",
-        prefix: s.vscodeSnippet.prefix
+        prefix: prefix
           .split(",")
           .map((v) => v.trim())
           .filter(Boolean),
