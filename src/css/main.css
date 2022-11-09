@@ -1,8 +1,6 @@
 :root {
   --app-bg: #fff;
   --app-fg: #000;
-  --sidebar-header-height: 40px;
-  --sidebar-body-height: calc(100% - var(--sidebar-header-height));
   --border-color: theme("colors.zinc.200");
 }
 
@@ -31,19 +29,6 @@ input:focus {
 
 .shadow-border-b {
   box-shadow: 0 1px var(--border-color);
-}
-
-.sidebar-header {
-  height: var(--sidebar-header-height);
-}
-
-.show-search {
-  --sidebar-header-height: 100px;
-  --sidebar-body-height: calc(100% - var(--sidebar-header-height));
-}
-
-.sidebar-body {
-  height: var(--sidebar-body-height);
 }
 
 .cm-editor {

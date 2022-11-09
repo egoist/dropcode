@@ -202,19 +202,19 @@ export const Snippets = () => {
   )
 
   return (
-    <div class="h-screen">
+    <div class="h-screen" classList={{ "is-mac": state.isMac }}>
       <div class="h-main flex">
         <div
-          class="border-r w-64 shrink-0 h-full"
+          class="border-r w-64 shrink-0 h-full flex flex-col"
           classList={{ "show-search": getSearchType() !== null }}
         >
           <div class="sidebar-header text-zinc-500 dark:text-zinc-300 text-xs">
+            <Show when={state.isMac}>
+              <div class="h-6" data-tauri-drag-region></div>
+            </Show>
             <div
-              class="flex items-center justify-between px-2"
-              classList={{
-                "h-full": getSearchType() === null,
-                "h-2/5": getSearchType() !== null,
-              }}
+              data-tauri-drag-region
+              class="flex items-center justify-between px-2 h-10 shrink-0"
             >
               <Button
                 type="button"
@@ -261,8 +261,8 @@ export const Snippets = () => {
               </div>
             </div>
             <Show when={getSearchType()}>
-              <div class="px-3">
-                <div class="flex justify-between h-1/5 pb-1 text-xs">
+              <div class="px-3 pb-2">
+                <div class="flex justify-between pb-1 text-xs">
                   <span class="text-zinc-500 dark:text-zinc-300">
                     {getSearchType() === "trash" ? "Trash" : "Search"}
                   </span>
@@ -391,7 +391,10 @@ export const Snippets = () => {
           }
         >
           <div class="w-full h-full">
-            <div class="border-b flex h-mainHeader items-center px-3 justify-between space-x-3">
+            <div
+              data-tauri-drag-region
+              class="border-b flex h-mainHeader items-center px-3 justify-between space-x-3"
+            >
               <input
                 spellcheck={false}
                 value={snippet()!.name}

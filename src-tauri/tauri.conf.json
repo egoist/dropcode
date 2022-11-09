@@ -68,7 +68,9 @@
         "width": 800,
         "minWidth": 800,
         "minHeight": 600,
-        "visible": false
+        "visible": false,
+        "hiddenTitle": true,
+        "titleBarStyle": "Overlay"
       }
     ]
   }

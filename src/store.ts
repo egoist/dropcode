@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid"
-import { fs, path, dialog } from "@tauri-apps/api"
+import { fs, path, dialog, os } from "@tauri-apps/api"
 import { BaseDirectory } from "@tauri-apps/api/fs"
 import { createStore } from "solid-js/store"
 
@@ -24,6 +24,7 @@ const [state, setState] = createStore<{
   app: AppData
   folder: string | null
   snippets: Snippet[]
+  isMac: boolean
 }>({
   ready: false,
   app: {
@@ -31,6 +32,7 @@ const [state, setState] = createStore<{
   },
   folder: null,
   snippets: [],
+  isMac: /macintosh/i.test(navigator.userAgent),
 })
 
 export { state }
@@ -51,7 +53,6 @@ const writeAppJson = async (appData: AppData) => {
 }
 
 const pathExists = async (path: string, baseDir?: BaseDirectory) => {
-  // @ts-expect-error tauri bug, actually returns a boolean
   const exists: boolean = await fs.exists(path, { dir: baseDir })
   return exists
 }

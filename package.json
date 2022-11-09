@@ -29,7 +29,7 @@
     "@sentry/browser": "^7.17.3",
     "@sentry/tracing": "^7.17.3",
     "@solidjs/router": "^0.5.0",
-    "@tauri-apps/api": "^1.1.0",
+    "@tauri-apps/api": "^1.2.0",
     "@uiw/codemirror-theme-github": "^4.12.4",
     "codemirror": "^6.0.1",
     "dayjs": "^1.11.6",
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@codemirror/lang-javascript": "^6.1.1",
     "@iconify/json": "^2.1.130",
-    "@tauri-apps/cli": "^1.1.0",
+    "@tauri-apps/cli": "^1.2.0",
     "@types/node": "^18.7.10",
     "@vitejs/plugin-react": "^2.0.0",
     "autoprefixer": "^10.4.12",
