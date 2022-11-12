@@ -1,0 +1,55 @@
+name: Build
+on: push
+
+
+jobs:
+  Build-for-Linux:
+    name: Build on Linux
+    runs-on: ubuntu-latest
+    steps:
+      # Prepare for Build
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+            toolchain: stable
+            override: true
+            components: rustfmt, clippy
+      - name: Install Nodejs&pnpm
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+      - name: Install Depends
+        run: |
+          npm install pnpm -g
+          sudo apt update
+          sudo apt install libwebkit2gtk-4.0-dev \
+            build-essential \
+            curl \
+            wget \
+            libssl-dev \
+            libgtk-3-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
+      # Build package for Linux
+      - name: Build
+        run: |
+          pnpm i
+          pnpm tauri build -b deb
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dropcode_nightly_amd64.deb
+          path: src-tauri/target/release/bundle/deb/*.deb
+          if-no-files-found: error
+
+      - name: Upload Release
+        if: startsWith(github.ref, 'refs/tags')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.TOKEN }}
+          file: /home/runner/work/dropcode/dropcode/src-tauri/target/release/bundle/deb/*.deb
+          tag: ${{ github.ref }}
+          overwrite: true
