@@ -25,6 +25,7 @@ const [state, setState] = createStore<{
   folder: string | null
   snippets: Snippet[]
   isMac: boolean
+  isSidebarCollapsed: boolean
 }>({
   ready: false,
   app: {
@@ -33,6 +34,7 @@ const [state, setState] = createStore<{
   folder: null,
   snippets: [],
   isMac: /macintosh/i.test(navigator.userAgent),
+  isSidebarCollapsed: false
 })
 
 export { state }
@@ -290,5 +292,9 @@ export const actions = {
       JSON.stringify(snippets, null, 2),
       { dir: BaseDirectory.Data }
     )
+  },
+
+  toggleSidebar: (isSidebarCollapsed: boolean) => {
+    setState("isSidebarCollapsed", !isSidebarCollapsed)
   },
 }
