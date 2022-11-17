@@ -174,6 +174,10 @@ export const Snippets = () => {
     }
   }
 
+  const toggleSidebar = () => {
+    actions.toggleSidebar(state.isSidebarCollapsed);
+  }
+
   createEffect(() => {
     if (getSearchType()) {
       searchInputEl?.focus()
@@ -256,10 +260,9 @@ export const Snippets = () => {
     <div class="h-screen" classList={{ "is-mac": state.isMac }}>
       <div class="h-main flex">
         <div
-          class="border-r w-64 shrink-0 h-full flex flex-col"
-          classList={{ "show-search": getSearchType() !== null }}
-        >
-          <div class="sidebar-header text-zinc-500 dark:text-zinc-300 text-xs">
+          class="shrink-0 h-full flex flex-col h-full"
+          classList={{ "show-search": getSearchType() !== null, "w-10": state.isSidebarCollapsed, "w-64": !state.isSidebarCollapsed}}>
+            <div class="sidebar-header text-zinc-500 dark:text-zinc-300 text-xs" classList={{"invisible": state.isSidebarCollapsed}}>
             <Show when={state.isMac}>
               <div class="h-6" data-tauri-drag-region></div>
             </Show>
@@ -293,7 +296,7 @@ export const Snippets = () => {
                     }
                     setSearchType("non-trash")
                   }}
-                  tooltip={{ content: "Show search box" }}
+                  tooltip={{ content: "Search" }}
                   isActive={getSearchType() === "non-trash"}
                 ></Button>
                 <Button
@@ -351,7 +354,7 @@ export const Snippets = () => {
               </div>
             </Show>
           </div>
-          <div class="sidebar-body group/sidebar-body flex-1 overflow-y-auto custom-scrollbar scrollbar-group p-2 pt-0 space-y-1">
+          <div class="sidebar-body group/sidebar-body flex-1 overflow-y-auto custom-scrollbar scrollbar-group p-2 pt-0 space-y-1" classList={{"invisible": state.isSidebarCollapsed}}>
             <For each={snippets()}>
               {(snippet) => {
                 return (
@@ -430,13 +433,28 @@ export const Snippets = () => {
               }}
             </For>
           </div>
+          {snippet() && <div class="sidebar-footer text-zinc-500 dark:text-zinc-300 text-xs border-t">
+            <div
+              data-tauri-drag-region
+              class="flex items-center justify-end px-2 h-10 shrink-0"
+            >
+              <div class="flex items-center">
+                <Button
+                  type="button"
+                  icon={state.isSidebarCollapsed ? "i-mdi:arrow-collapse-right" : "i-mdi:arrow-collapse-left"}
+                  tooltip={{content:  "Toggle sidebar"}}
+                  onClick={() => toggleSidebar()}
+                ></Button>
+              </div>
+            </div>
+          </div>}
         </div>
         <Show
           when={snippet()}
           fallback={
             <div
               data-tauri-drag-region
-              class="h-full w-full flex items-center justify-center px-20 text-center text-zinc-400 text-xl"
+              class="h-full w-full flex items-center justify-center px-20 text-center text-zinc-400 text-xl border-l"
             >
               <span class="select-none">
                 Select or create a snippet from sidebar
@@ -444,10 +462,9 @@ export const Snippets = () => {
             </div>
           }
         >
-          <div class="w-full h-full">
+          <div data-tauri-drag-region class="w-full h-full pt-6">
             <div
-              data-tauri-drag-region
-              class="border-b flex h-mainHeader items-center px-3 justify-between space-x-3"
+              class="border-l border-b border-t flex h-mainHeader items-center px-3 justify-between space-x-3"
             >
               <input
                 value={nameInputControl.value}
